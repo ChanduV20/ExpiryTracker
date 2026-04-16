@@ -17,12 +17,10 @@ export default function ProductCard({ name, expiry, status, onDelete }) {
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.expiry}>Expires: {expiry}</Text>
       </View>
-      
       <View style={styles.statusContainer}>
         <View style={[styles.statusDot, { backgroundColor: statusColors[status] }]} />
         <Text style={styles.statusText}>{status}</Text>
       </View>
-
       <TouchableOpacity style={styles.deleteBtn} onPress={onDelete}>
         <Text style={styles.deleteText}>✕</Text>
       </TouchableOpacity>
