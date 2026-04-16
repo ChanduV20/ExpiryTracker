@@ -4,12 +4,24 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { COLORS, SPACING, FONT } from '../config/theme';
 import ProductCard from '../components/ProductCard';
 import { useApp } from '../context/AppContext';
+import { useRoute, useFocusEffect } from '@react-navigation/native';
 
 export default function HomeScreen() {
   const { products, addProduct, removeProduct } = useApp();
+  const route = useRoute(); 
   const [name, setName] = useState('');
   const [expiry, setExpiry] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (route.params?.prefillDate) {
+        const [y, m, d] = route.params.prefillDate.split('-').map(Number);
+        setExpiry(new Date(y, m - 1, d));
+        route.params.prefillDate = null; // Clear to prevent re-trigger
+      }
+    }, [route.params?.prefillDate])
+  );
 
   const formatDate = (date) => {
     const y = date.getFullYear();

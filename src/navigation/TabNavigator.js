@@ -4,6 +4,7 @@ import { Text, View } from 'react-native'; // 👈 Added View
 import { COLORS } from '../config/theme';
 import HomeScreen from '../screens/HomeScreen';
 import ScannerScreen from '../screens/ScannerScreen';
+import LabelScannerScreen from '../screens/LabelScannerScreen';
 
 const SettingsScreen = () => (
   <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -26,6 +27,11 @@ export default function TabNavigator() {
       }}>
       <Tab.Screen name="Home" component={HomeScreen} options={{ tabBarLabel: 'Products', tabBarIcon: () => <IconText>📦</IconText> }} />
       <Tab.Screen name="Scanner" component={ScannerScreen} options={{ tabBarLabel: 'Scan', tabBarIcon: () => <IconText>📷</IconText> }} />
+      <Tab.Screen 
+        name="Label" 
+        component={LabelScannerScreen} 
+        options={{ tabBarLabel: 'Label', tabBarIcon: () => <IconText>🏷️</IconText> }} 
+        />
       <Tab.Screen name="Settings" component={SettingsScreen} options={{ tabBarLabel: 'Settings', tabBarIcon: () => <IconText>⚙️</IconText> }} />
     </Tab.Navigator>
   );
