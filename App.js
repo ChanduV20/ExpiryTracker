@@ -1,3 +1,4 @@
+// src/App.js
 import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { View, StyleSheet, Platform } from 'react-native';
@@ -7,10 +8,11 @@ import { COLORS } from './src/config/theme';
 import TabNavigator from './src/navigation/TabNavigator';
 import { AppProvider } from './src/context/AppContext';
 import * as Notifications from 'expo-notifications';
+import { debugGroq } from './src/services/aiRecipeService'; // ✅ Import NEW debug function
 
 export default function App() {
   useEffect(() => {
-    // 1. Request Permissions
+    // 1. Request Notification Permissions
     const requestPermissions = async () => {
       const { status } = await Notifications.requestPermissionsAsync();
       if (status !== 'granted') {
@@ -18,7 +20,7 @@ export default function App() {
       }
     };
 
-    // 2. Create Android Channel (Required for Android 8+)
+    // 2. Create Android Notification Channel
     const setupChannel = async () => {
       if (Platform.OS === 'android') {
         await Notifications.setNotificationChannelAsync('default', {
@@ -30,8 +32,16 @@ export default function App() {
       }
     };
 
+    // 3. 🔍 Run Groq Diagnostic (Replaces old HF debug)
+    const runDiagnostics = async () => {
+      console.log("🚀 App starting...");
+      // Uncomment next line to verify Groq API key on startup:
+      // debugGroq(); 
+    };
+
     requestPermissions();
     setupChannel();
+    runDiagnostics();
   }, []);
 
   return (
